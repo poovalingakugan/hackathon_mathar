@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dropout Prediction System</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-user-graduate"></i>
+                <h1>EduPredict AI</h1>
+            </div>
+            <p class="subtitle">Student Dropout Prediction & Support System</p>
+        </header>
+
+        <main>
+            <section class="prediction-section">
+                <!-- Search Section -->
+                <div id="searchSection" class="search-container">
+                    <div class="card assessment-card">
+                        <h2><i class="fas fa-search"></i> Student Risk Assessment</h2>
+                        <form id="predictionForm">
+                            <div class="form-group">
+                                <label for="attendance"><i class="fas fa-calendar-check"></i> Attendance Percentage (0-100)</label>
+                                <input type="number" id="attendance" name="attendance" min="0" max="100" placeholder="e.g. 85" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="marks"><i class="fas fa-star"></i> Academic Performance (Grade 0-20)</label>
+                                <input type="number" id="marks" name="marks" min="0" max="20" step="0.1" placeholder="e.g. 14.5" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="assignments"><i class="fas fa-file-alt"></i> Assignments Approved (0-20)</label>
+                                <input type="number" id="assignments" name="assignments" min="0" max="20" placeholder="e.g. 8" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="discipline"><i class="fas fa-gavel"></i> Discipline Cases Recorded</label>
+                                <input type="number" id="discipline" name="discipline" min="0" max="100" placeholder="e.g. 0" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="financial"><i class="fas fa-money-bill-wave"></i> Family or Financial Issue</label>
+                                <select id="financial" name="financial">
+                                    <option value="0">No Issues</option>
+                                    <option value="1">Has Financial Stress / Debt</option>
+                                </select>
+                            </div>
+                            <button type="submit" id="predictBtn">
+                                <span class="btn-text">Predict Risk Level</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Execution Screen (5s Delay) -->
+                <div id="executionScreen" class="fullscreen-overlay hidden">
+                    <div class="loader-content">
+                        <div class="glitch-loader"></div>
+                        <h2>Analyzing Student Data...</h2>
+                        <div class="loading-status">
+                            <span id="loadPct">0</span>% Complete
+                        </div>
+                        <div class="progress-bar-container">
+                            <div id="progressBar" class="progress-bar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prediction Result Section (Full Page View) -->
+                <div id="resultScreen" class="fullscreen-overlay result-view hidden">
+                    <div class="card result-card">
+                        <h2 class="section-title">Prediction Success!</h2>
+                        <div class="risk-container">
+                            <div id="riskLevel" class="risk-badge">Low Risk</div>
+                            <div class="risk-percentage-box">
+                                <span id="riskPercentage">0</span>%
+                                <small>Risk probability</small>
+                            </div>
+                        </div>
+                        <div class="reason-box">
+                            <p><strong>Primary Reason:</strong> <span id="reason">Loading...</span></p>
+                        </div>
+                        <div class="suggestion-box">
+                            <p><strong>Recommendation:</strong> <span id="suggestion">Loading...</span></p>
+                        </div>
+                        <button id="resetBtn" class="btn-secondary">
+                            Analyze Another Student
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="dashboard-section">
+                <div class="card dashboard-card">
+                    <h2><i class="fas fa-tachometer-alt"></i> Global Overview</h2>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-value" id="totalStudents">--</span>
+                            <span class="stat-label">Total Students</span>
+                        </div>
+                        <div class="stat-item high-risk">
+                            <span class="stat-value" id="highRiskCount">--</span>
+                            <span class="stat-label">High Risk</span>
+                        </div>
+                        <div class="stat-item medium-risk">
+                            <span class="stat-value" id="mediumRiskCount">--</span>
+                            <span class="stat-label">Medium Risk</span>
+                        </div>
+                        <div class="stat-item low-risk">
+                            <span class="stat-value" id="lowRiskCount">--</span>
+                            <span class="stat-label">Low Risk</span>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="riskChart"></canvas>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 EduPredict AI. Built for Student Success.</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
