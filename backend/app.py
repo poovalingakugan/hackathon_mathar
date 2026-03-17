@@ -127,6 +127,7 @@ def predict():
         })
 
     except Exception as e:
+        print(f"ERROR in /predict: {str(e)}")
         return jsonify({"error": str(e)}), 400
 
 @app.route('/stats', methods=['GET'])
